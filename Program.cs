@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using solita_assignment.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<JourneyContext>(opt => opt.UseInMemoryDatabase("Journey"));
+builder.Services.AddDbContext<StationContext>(opt => opt.UseInMemoryDatabase("Station"));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
