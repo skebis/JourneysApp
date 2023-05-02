@@ -1,4 +1,4 @@
-﻿namespace solita_assignment
+﻿namespace solita_assignment.Classes
 {
     public class Station
     {

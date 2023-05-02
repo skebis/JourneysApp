@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using solita_assignment;
+using solita_assignment.Classes;
 using solita_assignment.Models;
 
 namespace solita_assignment.Controllers
