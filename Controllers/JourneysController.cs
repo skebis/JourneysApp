@@ -29,7 +29,7 @@ namespace solita_assignment.Controllers
           {
               return NotFound();
           }
-            return await _context.Journeys.ToListAsync();
+            return await _context.Journeys.Take(20).ToListAsync();
         }
 
         // GET: api/Journeys/5

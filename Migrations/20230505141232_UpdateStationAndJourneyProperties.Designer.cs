@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using solita_assignment.Models;
 
@@ -10,9 +11,11 @@ using solita_assignment.Models;
 namespace solita_assignment.Migrations
 {
     [DbContext(typeof(JourneyContext))]
-    partial class JourneyContextModelSnapshot : ModelSnapshot
+    [Migration("20230505141232_UpdateStationAndJourneyProperties")]
+    partial class UpdateStationAndJourneyProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");

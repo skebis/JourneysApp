@@ -10,25 +10,19 @@ namespace solita_assignment.Models
 
         public string DbPath { get; }
 
+        public static readonly string dbFileName = "BikeJourneys.db";
+
         public JourneyContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "BikeJourneys.db");
+            // Create SQLite database to solution root directory.
+            DbPath = Path.Join(Environment.CurrentDirectory, dbFileName);
+
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) 
         { 
             options.UseSqlite($"Data Source={DbPath}");
         }
-
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Journey>().HasData(new Journey()
-            { 
-                CoveredDistance = 1, Departure = DateTime.Now, DepartureStationId = 0, DepartureStationName = "a",
-                Return = DateTime.Now, Duration = 2, ReturnStationId = 0, ReturnStationName = "b", JourneyId = Guid.NewGuid()
-            });
-        }*/
     }
 }
