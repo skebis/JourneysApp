@@ -21,25 +21,29 @@ namespace solita_assignment.Controllers
             _context = context;
         }
 
-        // GET: api/Journeys
+        // GET: api/Journeys?Page=1&PageSize=20
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Journey>>> GetJourneys()
+        public async Task<ActionResult<IEnumerable<Journey>>> GetJourneys([FromQuery]Pagination pag)
         {
-          if (_context.Journeys == null)
-          {
-              return NotFound();
-          }
-            return await _context.Journeys.Take(20).ToListAsync();
+            if (pag.Page < 1 || pag.PageSize < 1 || pag.PageSize > 100)
+            {
+                return BadRequest();
+            }
+            if (_context.Journeys == null)
+            {
+                return NotFound();
+            }
+            return await _context.Journeys.Skip(pag.PageSize*(pag.Page-1)).Take(pag.PageSize).ToListAsync();
         }
 
         // GET: api/Journeys/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Journey>> GetJourney(Guid id)
         {
-          if (_context.Journeys == null)
-          {
-              return NotFound();
-          }
+            if (_context.Journeys == null)
+            {
+                return NotFound();
+            }
             var journey = await _context.Journeys.FindAsync(id);
 
             if (journey == null)
@@ -86,10 +90,10 @@ namespace solita_assignment.Controllers
         [HttpPost]
         public async Task<ActionResult<Journey>> PostJourney(Journey journey)
         {
-          if (_context.Journeys == null)
-          {
-              return Problem("Entity set 'JourneyContext.Journeys'  is null.");
-          }
+            if (_context.Journeys == null)
+            {
+                return Problem("Entity set 'JourneyContext.Journeys'  is null.");
+            }
             _context.Journeys.Add(journey);
             await _context.SaveChangesAsync();
 

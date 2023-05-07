@@ -44,7 +44,7 @@ app.Run();
 // Insert all excel data from csv files to database, type T is the class that is getting imported.
 void ImportCsvData<T>(string[] csvFiles)
 {
-    int importRate = 10000;
+    int importRate = 5000;
 
     var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
     {
@@ -55,19 +55,23 @@ void ImportCsvData<T>(string[] csvFiles)
     {
         foreach (string csvFile in csvFiles)
         {
+            System.Diagnostics.Debug.WriteLine("Started importing {0}");
             // Read files from root directory (where solution-file is)
             using (var reader = new StreamReader(Path.Join(Environment.CurrentDirectory, csvFile)))
             {
                 using (var csv = new CsvReader(reader, csvConfig))
                 {
+                    int totalImports = 0;
+
                     if (typeof(T) == typeof(Journey))
                     {
                         var records = csv.GetRecords<JourneyDto>()
-                            .Where(row => row.CoveredDistance is not null and > 0
-                            && (DateTime.Compare(row.Return, row.Departure) > 0)
-                            && row.DepartureStationId > 0
-                            && row.ReturnStationId > 0
-                            && row.Duration > 10)
+                            .Where(row => 
+                            (row.DepartureStationId > 0) &&
+                            (row.ReturnStationId > 0) &&
+                            (row.CoveredDistance is not null and > 10.0) &&
+                            (row.Duration >= 10) &&
+                            (DateTime.Compare(row.Return, row.Departure) > 0))
                             .Select(row => new Journey()
                             {
                                 JourneyId = Guid.NewGuid(),
@@ -90,6 +94,8 @@ void ImportCsvData<T>(string[] csvFiles)
 
                                 db.BulkInsert(items);
                                 db.SaveChanges();
+                                totalImports += items.Count;
+                                System.Diagnostics.Debug.WriteLine(totalImports);
                             }
                         }
                     }
@@ -121,6 +127,8 @@ void ImportCsvData<T>(string[] csvFiles)
 
                                 db.BulkInsert(items);
                                 db.SaveChanges();
+                                totalImports += items.Count;
+                                System.Diagnostics.Debug.WriteLine(totalImports);
                             }
                         }
                     }
