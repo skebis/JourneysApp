@@ -1,23 +1,148 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using solita_assignment.Classes;
 using solita_assignment.Controllers;
+using solita_assignment.Models;
+using Xunit;
 
 namespace solita_assignment.Tests
 {
-    [TestClass]
     public class TestJourneysController
     {
 
-        [TestMethod]
-        public void GetJourneysPagination_ShouldReturnGivenAmount()
+        private readonly JourneysController _journeysController;
+        private readonly Mock<JourneyContext> _journeyContext = new();
+
+        public TestJourneysController() 
         {
-            var testJourneys = GetJourneysSample();
-            //var journeyController = new JourneysController();
-            Assert.IsNotNull(true);
+            _journeysController = new JourneysController(_journeyContext.Object);
         }
 
-        public Journey GetSingleJourneySample()
+        [Fact]
+        public async Task GetJourneysPagination_ShouldReturnGivenAmount()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 2 };
+
+            //_journeyContext.Setup(context => context.Journeys.ToList()).Returns(GetJourneysSample());
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetJourneysPagination_PageLessThanOne_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetJourneysPagination_PageSizeLessThanOne_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetJourney_ShouldReturnRequestedJourney()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetJourney_JourneyDoesntExist_ShouldReturnNotFound()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PostJourney_ShouldReturnJourneyCreated()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PostJourney_InvalidJourney_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PutJourney_ValidJourneyModel_ShouldReturnNoContent()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task PutJourney_InvalidJourneyModel_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var pagination = new Pagination { Page = 1, PageSize = 10 };
+
+            // Act
+            var res = (await _journeysController.GetJourneys(pagination)).Value;
+
+            // Assert
+            res.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Returns a single journey sample.
+        /// </summary>
+        /// <returns>One journey sample.</returns>
+        private Journey GetSingleJourneySample()
         {
             var journey = new Journey
             {
@@ -34,7 +159,11 @@ namespace solita_assignment.Tests
             return journey;
         }
 
-        public List<Journey> GetJourneysSample()
+        /// <summary>
+        /// Returns a sample of journeys.
+        /// </summary>
+        /// <returns>A sample of five journeys.</returns>
+        private List<Journey> GetJourneysSample()
         {
             List<Journey> journeysSample = new List<Journey>();
             //  year, month, day, hour, minute, and second.

@@ -5,8 +5,8 @@ namespace solita_assignment.Models
 {
     public class JourneyContext : DbContext
     {
-        public DbSet<Journey> Journeys { get; set; }
-        public DbSet<Station> Stations { get; set; }
+        public virtual DbSet<Journey> Journeys { get; set; }
+        public virtual DbSet<Station> Stations { get; set; }
 
         public string DbPath { get; }
 
@@ -16,8 +16,6 @@ namespace solita_assignment.Models
         {
             // Create SQLite database to solution root directory.
             DbPath = Path.Join(Environment.CurrentDirectory, dbFileName);
-
-            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using solita_assignment.Classes;
@@ -36,7 +35,7 @@ namespace solita_assignment.Controllers
             return await _context.Journeys.Skip(pag.PageSize*(pag.Page-1)).Take(pag.PageSize).ToListAsync();
         }
 
-        // GET: api/Journeys/5
+        // GET: api/Journeys/11223344-5566-7788-99AA-BBCCDDEEFF00
         [HttpGet("{id}")]
         public async Task<ActionResult<Journey>> GetJourney(Guid id)
         {
@@ -54,7 +53,7 @@ namespace solita_assignment.Controllers
             return journey;
         }
 
-        // PUT: api/Journeys/5
+        // PUT: api/Journeys/11223344-5566-7788-99AA-BBCCDDEEFF00
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutJourney(Guid id, Journey journey)
@@ -88,12 +87,24 @@ namespace solita_assignment.Controllers
         // POST: api/Journeys
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Journey>> PostJourney(Journey journey)
+        public async Task<ActionResult<Journey>> PostJourney(JourneyDto journeyDto)
         {
             if (_context.Journeys == null)
             {
                 return Problem("Entity set 'JourneyContext.Journeys'  is null.");
             }
+            var journey = new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                CoveredDistance = journeyDto.CoveredDistance,
+                Departure = journeyDto.Departure,
+                DepartureStationId = journeyDto.DepartureStationId,
+                DepartureStationName = journeyDto.DepartureStationName,
+                Duration = journeyDto.Duration,
+                Return = journeyDto.Return,
+                ReturnStationId = journeyDto.ReturnStationId,
+                ReturnStationName = journeyDto.ReturnStationName
+            };
             _context.Journeys.Add(journey);
             await _context.SaveChangesAsync();
 

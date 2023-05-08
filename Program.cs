@@ -4,7 +4,6 @@ using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using solita_assignment.Classes;
 using solita_assignment.Models;
-using System.Collections;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,6 +85,7 @@ void ImportCsvData<T>(string[] csvFiles)
                             });
                         using (var db = new JourneyContext())
                         {
+                            db.Database.Migrate();
                             while (true)
                             {
                                 var items = records.Take(importRate).ToList();
@@ -119,6 +119,7 @@ void ImportCsvData<T>(string[] csvFiles)
                         });
                         using (var db = new JourneyContext())
                         {
+                            db.Database.Migrate();
                             while (true)
                             {
                                 var items = records.Take(importRate).ToList();
