@@ -32,7 +32,10 @@ namespace solita_assignment.Controllers
             {
                 return NotFound();
             }
-            return await _context.Journeys.Skip(pag.PageSize*(pag.Page-1)).Take(pag.PageSize).ToListAsync();
+            return await _context.Journeys
+                .Skip(pag.PageSize*(pag.Page-1))
+                .Take(pag.PageSize)
+                .ToListAsync();
         }
 
         // GET: api/Journeys/11223344-5566-7788-99AA-BBCCDDEEFF00

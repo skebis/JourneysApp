@@ -12,15 +12,15 @@ namespace solita_assignment.Models
 
         public static readonly string dbFileName = "BikeJourneys.db";
 
-        public JourneyContext()
+        public JourneyContext(DbContextOptions<JourneyContext> opt) : base(opt)
         {
             // Create SQLite database to solution root directory.
             DbPath = Path.Join(Environment.CurrentDirectory, dbFileName);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options) 
+        /*protected override void OnConfiguring(DbContextOptionsBuilder options) 
         { 
             options.UseSqlite($"Data Source={DbPath}");
-        }
+        }*/
     }
 }

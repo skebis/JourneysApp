@@ -4,19 +4,21 @@ using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using solita_assignment.Classes;
 using solita_assignment.Models;
+using System.Data.Entity;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<JourneyContext>();
+builder.Services.AddDbContext<JourneyContext>(opt => opt.UseSqlite($"Data Source={JourneyContext.dbFileName}"));
+
 
 // Currently hard-coded file names
 if (!File.Exists(Path.Join(Environment.CurrentDirectory, JourneyContext.dbFileName)))
 {
-    ImportCsvData<Journey>(new string[]{ "2021-05.csv", "2021-06.csv", "2021-07.csv" });
-    ImportCsvData<Station>(new string[]{ "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv" });
+    ImportCsvData<Journey>(new string[] { "2021-05.csv", "2021-06.csv", "2021-07.csv" });
+    ImportCsvData<Station>(new string[] { "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv" });
 }
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -52,40 +54,43 @@ void ImportCsvData<T>(string[] csvFiles)
 
     try
     {
-        foreach (string csvFile in csvFiles)
+        var opt = new DbContextOptionsBuilder<JourneyContext>()
+            .UseSqlite($"Data Source={JourneyContext.dbFileName}")
+            .Options;
+        using (var db = new JourneyContext(opt))
         {
-            System.Diagnostics.Debug.WriteLine("Started importing {0}");
-            // Read files from root directory (where solution-file is)
-            using (var reader = new StreamReader(Path.Join(Environment.CurrentDirectory, csvFile)))
+            db.Database.Migrate();
+            foreach (string csvFile in csvFiles)
             {
-                using (var csv = new CsvReader(reader, csvConfig))
+                System.Diagnostics.Debug.WriteLine("Started importing {0}");
+                // Read files from root directory (where solution-file is)
+                using (var reader = new StreamReader(Path.Join(Environment.CurrentDirectory, csvFile)))
                 {
-                    int totalImports = 0;
-
-                    if (typeof(T) == typeof(Journey))
+                    using (var csv = new CsvReader(reader, csvConfig))
                     {
-                        var records = csv.GetRecords<JourneyDto>()
-                            .Where(row => 
-                            (row.DepartureStationId > 0) &&
-                            (row.ReturnStationId > 0) &&
-                            (row.CoveredDistance is not null and > 10.0) &&
-                            (row.Duration >= 10) &&
-                            (DateTime.Compare(row.Return, row.Departure) > 0))
-                            .Select(row => new Journey()
-                            {
-                                JourneyId = Guid.NewGuid(),
-                                CoveredDistance = row.CoveredDistance,
-                                Departure = row.Departure,
-                                DepartureStationId = row.DepartureStationId,
-                                DepartureStationName = row.DepartureStationName,
-                                Duration = row.Duration,
-                                Return = row.Return,
-                                ReturnStationId = row.ReturnStationId,
-                                ReturnStationName = row.ReturnStationName
-                            });
-                        using (var db = new JourneyContext())
+                        int totalImports = 0;
+
+                        if (typeof(T) == typeof(Journey))
                         {
-                            db.Database.Migrate();
+                            var records = csv.GetRecords<JourneyDto>()
+                                .Where(row =>
+                                (row.DepartureStationId > 0) &&
+                                (row.ReturnStationId > 0) &&
+                                (row.CoveredDistance is not null and > 10.0) &&
+                                (row.Duration >= 10) &&
+                                (DateTime.Compare(row.Return, row.Departure) > 0))
+                                .Select(row => new Journey()
+                                {
+                                    JourneyId = Guid.NewGuid(),
+                                    CoveredDistance = row.CoveredDistance,
+                                    Departure = row.Departure,
+                                    DepartureStationId = row.DepartureStationId,
+                                    DepartureStationName = row.DepartureStationName,
+                                    Duration = row.Duration,
+                                    Return = row.Return,
+                                    ReturnStationId = row.ReturnStationId,
+                                    ReturnStationName = row.ReturnStationName
+                                });
                             while (true)
                             {
                                 var items = records.Take(importRate).ToList();
@@ -98,28 +103,24 @@ void ImportCsvData<T>(string[] csvFiles)
                                 System.Diagnostics.Debug.WriteLine(totalImports);
                             }
                         }
-                    }
-                    else if (typeof(T) == typeof(Station))
-                    {
-                        var records = csv.GetRecords<StationDto>().Select(row => new Station()
+                        else if (typeof(T) == typeof(Station))
                         {
-                            StationId = Guid.NewGuid(),
-                            IdInt = row.IdInt,
-                            NameFinnish = row.NameFinnish,
-                            NameSwedish = row.NameSwedish,
-                            NameEnglish = row.NameEnglish,
-                            AddressFinnish = row.AddressFinnish,
-                            AddressSwedish = row.AddressSwedish,
-                            CityFinnish = row.CityFinnish,
-                            CitySwedish = row.CitySwedish,
-                            Operator = row.Operator,
-                            Capacity = row.Capacity,
-                            LocationX = row.LocationX,
-                            LocationY = row.LocationY,
-                        });
-                        using (var db = new JourneyContext())
-                        {
-                            db.Database.Migrate();
+                            var records = csv.GetRecords<StationDto>().Select(row => new Station()
+                            {
+                                StationId = Guid.NewGuid(),
+                                IdInt = row.IdInt,
+                                NameFinnish = row.NameFinnish,
+                                NameSwedish = row.NameSwedish,
+                                NameEnglish = row.NameEnglish,
+                                AddressFinnish = row.AddressFinnish,
+                                AddressSwedish = row.AddressSwedish,
+                                CityFinnish = row.CityFinnish,
+                                CitySwedish = row.CitySwedish,
+                                Operator = row.Operator,
+                                Capacity = row.Capacity,
+                                LocationX = row.LocationX,
+                                LocationY = row.LocationY,
+                            });
                             while (true)
                             {
                                 var items = records.Take(importRate).ToList();
@@ -136,6 +137,7 @@ void ImportCsvData<T>(string[] csvFiles)
                 }
             }
         }
+            
     }
     catch (DirectoryNotFoundException ex)
     {

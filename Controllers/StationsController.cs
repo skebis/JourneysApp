@@ -25,10 +25,10 @@ namespace solita_assignment.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Station>>> GetStations()
         {
-          if (_context.Stations == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stations == null)
+            {
+                return NotFound();
+            }
             return await _context.Stations.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace solita_assignment.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Station>> GetStation(Guid id)
         {
-          if (_context.Stations == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stations == null)
+            {
+                return NotFound();
+            }
             var station = await _context.Stations.FindAsync(id);
 
             if (station == null)
@@ -84,12 +84,28 @@ namespace solita_assignment.Controllers
         // POST: api/Stations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Station>> PostStation(Station station)
+        public async Task<ActionResult<Station>> PostStation(StationDto stationDto)
         {
-          if (_context.Stations == null)
-          {
-              return Problem("Entity set 'StationContext.Stations'  is null.");
-          }
+            if (_context.Stations == null)
+            {
+                return Problem("Entity set 'StationContext.Stations'  is null.");
+            }
+            var station = new Station
+            {
+                StationId = Guid.NewGuid(),
+                AddressFinnish = stationDto.AddressFinnish,
+                AddressSwedish = stationDto.AddressSwedish,
+                Capacity = stationDto.Capacity,
+                CityFinnish = stationDto.CityFinnish,
+                CitySwedish = stationDto.CitySwedish,
+                IdInt   = stationDto.IdInt,
+                LocationX = stationDto.LocationX,
+                LocationY = stationDto.LocationY,
+                NameEnglish = stationDto.NameEnglish,
+                NameFinnish = stationDto.NameFinnish,
+                NameSwedish = stationDto.NameSwedish,
+                Operator    = stationDto.Operator
+            };
             _context.Stations.Add(station);
             await _context.SaveChangesAsync();
 
