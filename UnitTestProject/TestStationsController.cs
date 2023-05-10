@@ -211,6 +211,62 @@ namespace solita_assignment.Tests
             }
         }
 
+        [Fact]
+        public async Task DeleteStation_ShouldReturnNoContent()
+        {
+            // Arrange
+            var opt = new DbContextOptionsBuilder<JourneyContext>()
+                .UseInMemoryDatabase(databaseName: "JourneysDB")
+                .Options;
+
+            using (var context = new JourneyContext(opt))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Add(GetSingleStationSample());
+                context.SaveChanges();
+            }
+
+            // Act
+            using (var context = new JourneyContext(opt))
+            {
+                var controller = new StationsController(context);
+                var res = (await controller.DeleteStation(new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00")));
+
+                // Assert
+                Assert.NotNull(res);
+                Assert.IsType<NoContentResult>(res);
+            }
+        }
+
+        [Fact]
+        public async Task DeleteStation_StationDoesntExist_ShouldReturnNotFound()
+        {
+            // Arrange
+            var opt = new DbContextOptionsBuilder<JourneyContext>()
+                .UseInMemoryDatabase(databaseName: "JourneysDB")
+                .Options;
+
+            using (var context = new JourneyContext(opt))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Add(GetSingleStationSample());
+                context.SaveChanges();
+            }
+
+            // Act
+            using (var context = new JourneyContext(opt))
+            {
+                var controller = new StationsController(context);
+                var res = (await controller.DeleteStation(new Guid("22223344-5566-7788-99AA-BBCCDDEEFF00")));
+
+                // Assert
+                Assert.NotNull(res);
+                Assert.IsType<NotFoundResult>(res);
+            }
+        }
+
         /// <summary>
         /// Returns a single journey sample.
         /// </summary>

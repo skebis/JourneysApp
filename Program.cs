@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<JourneyContext>(opt => opt.UseSqlite($"Data Source={JourneyContext.dbFileName}"));
 
 
-// Currently hard-coded file names
+// Currently hard-coded file names.
 if (!File.Exists(Path.Join(Environment.CurrentDirectory, JourneyContext.dbFileName)))
 {
     ImportCsvData<Journey>(new string[] { "2021-05.csv", "2021-06.csv", "2021-07.csv" });
@@ -62,8 +62,8 @@ void ImportCsvData<T>(string[] csvFiles)
             db.Database.Migrate();
             foreach (string csvFile in csvFiles)
             {
-                System.Diagnostics.Debug.WriteLine("Started importing {0}");
-                // Read files from root directory (where solution-file is)
+                System.Diagnostics.Debug.WriteLine("Started importing " + csvFile);
+                // Read files from the root directory (where the Visual studio solution-file is).
                 using (var reader = new StreamReader(Path.Join(Environment.CurrentDirectory, csvFile)))
                 {
                     using (var csv = new CsvReader(reader, csvConfig))
@@ -72,6 +72,7 @@ void ImportCsvData<T>(string[] csvFiles)
 
                         if (typeof(T) == typeof(Journey))
                         {
+                            // Validate journeys from the csv-file.
                             var records = csv.GetRecords<JourneyDto>()
                                 .Where(row =>
                                 (row.DepartureStationId > 0) &&
