@@ -1,0 +1,34 @@
+
+<h1 mat-dialog-title id="tableLabel">Add new recipe</h1>
+<div mat-dialog-content>
+  <mat-form-field class="recipe-name">
+    <mat-label class="label-recipe-name">Name</mat-label>
+    <input matInput class="input-recipe-name" type="text" [(ngModel)]="recipe.name" />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="recipe-description">
+    <mat-label class="label-recipe-description">Description</mat-label>
+    <textarea matInput class="input-recipe-description" [(ngModel)]="recipe.description"></textarea>
+  </mat-form-field>
+  <br />
+  <div *ngFor="let ing of recipe.ingredients">
+    <mat-form-field>
+      <mat-label class="label-recipe-ingredient-name">Ingredient name</mat-label>
+      <input matInput class="input-recipe-ingredient-name" type="text" [(ngModel)]="ing.name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="label-recipe-ingredient-amount">Ingredient amount</mat-label>
+      <input matInput class="input-recipe-ingredient-amount" type="number" [(ngModel)]="ing.amount" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="label-recipe-ingredient-unit">Ingredient unit</mat-label>
+      <input matInput class="input-recipe-ingredient-unit" type="text" [(ngModel)]="ing.unit" />
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="raised" class="button-add-ingredient-row" (click)="addNewIngredient()">Add ingredient row</button>
+  <br />
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" class="button-add-recipe" (click)="addRecipe()">Add recipe</button>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>
