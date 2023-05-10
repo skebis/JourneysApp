@@ -13,7 +13,7 @@ namespace solita_assignment.Tests
     {
 
         [Fact]
-        public async Task GetStationsPagination_ShouldReturnGivenAmount()
+        public async Task GetStations_ShouldReturnGivenAmount()
         {
             // Arrange
             var opt = new DbContextOptionsBuilder<JourneyContext>()
@@ -268,9 +268,9 @@ namespace solita_assignment.Tests
         }
 
         /// <summary>
-        /// Returns a single journey sample.
+        /// Returns a single station sample.
         /// </summary>
-        /// <returns>One journey sample.</returns>
+        /// <returns>One station sample.</returns>
         private Station GetSingleStationSample()
         {
             var station = new Station
@@ -293,9 +293,9 @@ namespace solita_assignment.Tests
         }
 
         /// <summary>
-        /// Returns a single journey sample (without assigned Guid).
+        /// Returns a single station sample (without assigned Guid).
         /// </summary>
-        /// <returns>One journey sample.</returns>
+        /// <returns>One station sample.</returns>
         private StationDto GetSingleStationDtoSample()
         {
             var station = new StationDto
@@ -317,9 +317,9 @@ namespace solita_assignment.Tests
         }
 
         /// <summary>
-        /// Returns a sample of journeys.
+        /// Returns a sample of stations.
         /// </summary>
-        /// <returns>A sample of five journeys.</returns>
+        /// <returns>A sample of five stations.</returns>
         private List<Station> GetStationsSample()
         {
             List<Station> stationsSample = new List<Station>();
