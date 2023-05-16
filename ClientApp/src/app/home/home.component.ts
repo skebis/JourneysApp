@@ -12,7 +12,7 @@ export class HomeComponent {
 
   }
 
-  openAddRecipeDialog(): void {
+  openAddJourneyDialog(): void {
     const dialogRef = this.dialog.open(AddJourneyComponent, {
       
     });

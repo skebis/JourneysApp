@@ -11,7 +11,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { AddJourneyComponent } from './add-journey/add-journey.component';
-import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { JourneyListComponent } from './journey-list/journey-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
     HomeComponent,
     CounterComponent,
     AddJourneyComponent,
-    RecipeListComponent,
+    JourneyListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Recipe } from '../classes/recipe';
+import { Journey } from '../classes/journey';
 import { JourneyService } from '../journey-service';
 
 @Component({
@@ -13,12 +13,17 @@ import { JourneyService } from '../journey-service';
 @Injectable()
 export class AddJourneyComponent implements OnInit, OnDestroy {
 
-  // recipe is the current recipe that is being edited and added.
-  recipe: Recipe = {
-    name: '',
-    ingredients: [],
-    description: ''
-  }
+  // journey is the current journey that is being edited and added.
+  journey: Journey = {
+    departure: new Date('2023-05-16'),
+    return: new Date('2023-05-16'),
+    departureStationId: 0,
+    departureStationName: '',
+    returnStationId: 0,
+    returnStationName: '',
+    coveredDistance: 0,
+    duration: 0
+  };
 
   constructor(private journeyService: JourneyService,
     public dialogRef: MatDialogRef<AddJourneyComponent>) {
@@ -41,30 +46,26 @@ export class AddJourneyComponent implements OnInit, OnDestroy {
     // Change detection things here
   }
 
-  // Adds new recipe by calling API backend.
-  addRecipe() {
-    this.journeyService.postRecipe(this.recipe).subscribe(res => {
+  // Adds new journey by calling API backend.
+  addJourney() {
+    this.journeyService.postJourney(this.journey).subscribe(res => {
       console.log(res + " got answer");
     });
-    this.clearRecipe();
+    this.clearJourney();
     this.dialogRef.close();
   }
 
-  // Adds new empty ingredient to current recipe.
-  addNewIngredient() {
-    this.recipe.ingredients.push({
-        name: '',
-        amount: 0,
-        unit: ''
-    });
-  }
-
-  // Clears current recipe, making it empty.
-  private clearRecipe() {
-    this.recipe = {
-      name: '',
-      ingredients: [],
-      description: ''
+  // Clears current journey, making it empty.
+  private clearJourney() {
+    this.journey = {
+      departure: new Date('2023-05-16'),
+      return: new Date('2023-05-16'),
+      departureStationId: 0,
+      departureStationName: '',
+      returnStationId: 0,
+      returnStationName: '',
+      coveredDistance: 0,
+      duration: 0
     }
   }
 

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Recipe } from "./classes/recipe";
+import { Journey } from "./classes/journey";
 
 @Injectable()
 export class JourneyService {
@@ -11,11 +11,11 @@ export class JourneyService {
 
   }
 
-  public getRecipes(): Observable<any> {
-    return this.http.get<Recipe[]>(this.baseUrl + this.baseApiUrl);
+  public getJourneys(): Observable<any> {
+    return this.http.get<Journey[]>(this.baseUrl + this.baseApiUrl);
   }
 
-  public postRecipe(recipe: Recipe): Observable<any> {
-    return this.http.post<Recipe>(this.baseUrl + this.baseApiUrl, recipe);
+  public postJourney(journey: Journey): Observable<any> {
+    return this.http.post<Journey>(this.baseUrl + this.baseApiUrl, journey);
   }
 }
