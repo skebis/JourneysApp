@@ -13,7 +13,7 @@ const providers = [
     provide: 'BASE_URL', useFactory: getBaseUrl, deps: []
   },
   {
-    provide: 'BASE_API_URL', useFactory: () => "api/Journey", deps: []
+    provide: 'BASE_API_URL', useFactory: () => "api/Journeys", deps: []
   }
 ];
 

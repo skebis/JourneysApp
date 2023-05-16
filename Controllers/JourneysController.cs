@@ -24,7 +24,7 @@ namespace solita_assignment.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Journey>>> GetJourneys([FromQuery]Pagination pag)
         {
-            if (pag.Page < 1 || pag.PageSize < 1 || pag.PageSize > 100)
+            if (pag.Page < 0 || pag.PageSize < 1 || pag.PageSize > 100)
             {
                 return BadRequest();
             }
@@ -33,7 +33,7 @@ namespace solita_assignment.Controllers
                 return NotFound();
             }
             return await _context.Journeys
-                .Skip(pag.PageSize*(pag.Page-1))
+                .Skip(pag.PageSize*(pag.Page))
                 .Take(pag.PageSize)
                 .ToListAsync();
         }

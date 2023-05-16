@@ -1,5 +1,7 @@
-import { Component, Inject, Injectable, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { Journey } from "../classes/journey";
 import { JourneyDetailsComponent } from "../journey-details/journey-details.component";
 import { JourneyService } from "../journey-service";
@@ -12,15 +14,24 @@ import { JourneyService } from "../journey-service";
 })
 
 @Injectable()
-export class JourneyListComponent implements OnInit, OnDestroy {
+export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
   // journeys is the list of all current journeys in a table. Used for showing journeys to user.
-  journeys: Journey[] = [];
+  journeys = [];
+
+  dataSource = new MatTableDataSource<Journey>(this.journeys);
 
   // Mat table definitions
   displayedColumns: string[] = ['name', 'description', 'actions'];
 
+  @ViewChild(MatPaginator)
+    paginator!: MatPaginator;
+
   constructor(private journeyService: JourneyService, public dialog: MatDialog) {
 
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
@@ -46,7 +57,13 @@ export class JourneyListComponent implements OnInit, OnDestroy {
   }
 
   showJourneys() {
-    this.journeyService.getJourneys().subscribe(res => {
+    this.journeyService.getJourneys(this.paginator.pageIndex, this.paginator.pageSize).subscribe(res => {
+      this.dataSource = new MatTableDataSource(res);
+    });
+  }
+
+  showJourney(id: string) {
+    this.journeyService.getJourney(id).subscribe(res => {
       this.journeys = res;
     });
   }

@@ -32,7 +32,7 @@ namespace solita_assignment.Tests
             using (var context = new JourneyContext(opt))
             {
                 var controller = new JourneysController(context);
-                var pagination = new Pagination { Page = 1, PageSize = 5 };
+                var pagination = new Pagination { Page = 0, PageSize = 5 };
                 var res = (await controller.GetJourneys(pagination)).Value;
 
                 // Assert
@@ -61,7 +61,7 @@ namespace solita_assignment.Tests
             using (var context = new JourneyContext(opt))
             {
                 var controller = new JourneysController(context);
-                var pagination = new Pagination { Page = 1, PageSize = 2 };
+                var pagination = new Pagination { Page = 0, PageSize = 2 };
                 var res = (await controller.GetJourneys(pagination)).Value;
 
                 // Assert
