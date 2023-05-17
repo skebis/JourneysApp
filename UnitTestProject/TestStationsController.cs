@@ -41,7 +41,7 @@ namespace solita_assignment.Tests
         }
 
         [Fact]
-        public async Task GetStation_ShouldReturnRequestedStation()
+        public async Task GetStation_ShouldReturnRequestedStationAndStationCounts()
         {
             // Arrange
             var opt = new DbContextOptionsBuilder<JourneyContext>()
@@ -53,6 +53,7 @@ namespace solita_assignment.Tests
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.Add(GetSingleStationSample());
+                context.AddRange(GetJourneysSample());
                 context.SaveChanges();
             }
 
@@ -60,11 +61,17 @@ namespace solita_assignment.Tests
             using (var context = new JourneyContext(opt))
             {
                 var controller = new StationsController(context);
-                var res = (await controller.GetStation(new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00"))).Value;
+                var res = (await controller.GetStation(new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00"))).Result as OkObjectResult;
 
                 // Assert
                 Assert.NotNull(res);
-                Assert.Equal(res.StationId, new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00"));
+                Assert.IsType<OkObjectResult>(res);
+
+                var resValue = res.Value as StationCountResponse;
+                Assert.NotNull(resValue);
+                Assert.Equal(1, resValue.DepartureStationCount);
+                Assert.Equal(3, resValue.ReturnStationCount);
+                Assert.Equal(resValue.Station.StationId, new Guid("11223344-5566-7788-99AA-BBCCDDEEFF00"));
             }
         }
 
@@ -407,5 +414,79 @@ namespace solita_assignment.Tests
 
             return stationsSample;
         }
+
+        /// <summary>
+        /// Returns a sample of journeys.
+        /// </summary>
+        /// <returns>A sample of five journeys.</returns>
+        private List<Journey> GetJourneysSample()
+        {
+            List<Journey> journeysSample = new List<Journey>();
+            //  year, month, day, hour, minute, and second.
+            journeysSample.Add(new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                Departure = new DateTime(2023, 8, 22, 10, 58, 10),
+                Return = new DateTime(2023, 8, 22, 12, 45, 2),
+                DepartureStationName = "Station",
+                DepartureStationId = 1,
+                ReturnStationName = "Station 2",
+                ReturnStationId = 2,
+                CoveredDistance = 2000,
+                Duration = 1200
+            });
+            journeysSample.Add(new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                Departure = new DateTime(2023, 8, 15, 10, 58, 10),
+                Return = new DateTime(2023, 8, 22, 12, 45, 2),
+                DepartureStationName = "Station 2",
+                DepartureStationId = 2,
+                ReturnStationName = "Station 3",
+                ReturnStationId = 3,
+                CoveredDistance = 100,
+                Duration = 650
+            });
+            journeysSample.Add(new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                Departure = new DateTime(2023, 8, 12, 10, 58, 10),
+                Return = new DateTime(2023, 8, 22, 12, 45, 2),
+                DepartureStationName = "Station 3",
+                DepartureStationId = 3,
+                ReturnStationName = "Station 4",
+                ReturnStationId = 1,
+                CoveredDistance = 550,
+                Duration = 400
+            });
+            journeysSample.Add(new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                Departure = new DateTime(2023, 8, 5, 10, 58, 10),
+                Return = new DateTime(2023, 8, 22, 12, 45, 2),
+                DepartureStationName = "Station 4",
+                DepartureStationId = 4,
+                ReturnStationName = "Station 5",
+                ReturnStationId = 1,
+                CoveredDistance = 256,
+                Duration = 20
+            });
+            journeysSample.Add(new Journey
+            {
+                JourneyId = Guid.NewGuid(),
+                Departure = new DateTime(2023, 8, 8, 10, 58, 10),
+                Return = new DateTime(2023, 8, 22, 12, 45, 2),
+                DepartureStationName = "Station 5",
+                DepartureStationId = 5,
+                ReturnStationName = "Station 6",
+                ReturnStationId = 1,
+                CoveredDistance = 790,
+                Duration = 65
+            });
+
+            return journeysSample;
+        }
     }
+
+
 }

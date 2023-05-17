@@ -46,7 +46,19 @@ namespace solita_assignment.Controllers
                 return NotFound();
             }
 
-            return station;
+            // Could be possible to make a group by query but didn't have enough time to sort out an answer!
+            var departureCount = _context.Journeys
+                .Where(j => station.IdInt == j.DepartureStationId).Count();
+
+            var returnCount = _context.Journeys
+                .Where(j => station.IdInt == j.ReturnStationId).Count();
+
+            return Ok(new StationCountResponse
+            {
+                DepartureStationCount = departureCount,
+                ReturnStationCount = returnCount,
+                Station = station           
+            });
         }
 
         // PUT: api/Stations/5
