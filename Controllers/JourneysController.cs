@@ -22,9 +22,10 @@ namespace solita_assignment.Controllers
 
         // GET: api/Journeys?Page=1&PageSize=20
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Journey>>> GetJourneys([FromQuery]Pagination pag)
+        public async Task<ActionResult<PagedResponse<Journey>>> GetJourneys([FromQuery] Pagination pag)
         {
-            if (pag.Page < 0 || pag.PageSize < 1 || pag.PageSize > 100)
+            // Return bad request if pagination is incorrect.
+            if (pag.Page < 0 || pag.PageSize < 1 || pag.PageSize > 20)
             {
                 return BadRequest();
             }
@@ -32,10 +33,15 @@ namespace solita_assignment.Controllers
             {
                 return NotFound();
             }
-            return await _context.Journeys
-                .Skip(pag.PageSize*(pag.Page))
+            // DB can contain millions of data so return only a chunk of it
+            // and count so front end can still show pagination pages.
+            return Ok(new PagedResponse<Journey>{
+                DataCount = await _context.Journeys.CountAsync(),
+                Data = await _context.Journeys
+                .Skip(pag.PageSize * pag.Page)
                 .Take(pag.PageSize)
-                .ToListAsync();
+                .ToListAsync()
+            });
         }
 
         // GET: api/Journeys/11223344-5566-7788-99AA-BBCCDDEEFF00

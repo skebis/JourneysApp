@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +23,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     MatSortModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -30,6 +33,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     MatSortModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

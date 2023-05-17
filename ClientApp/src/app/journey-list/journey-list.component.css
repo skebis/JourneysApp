@@ -1,4 +1,11 @@
+mat-header-cell {
+    font-weight: bold;
+}
+
+mat-header-cell, mat-cell {
+    justify-content: center;
+}
+
 table {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    width: 100%;
 }

@@ -2,6 +2,7 @@
 
 namespace solita_assignment.Classes
 {
+    // Represents a single station object.
     public class Station
     {
         public Guid StationId { get; set; }

@@ -2,6 +2,7 @@
 
 namespace solita_assignment.Classes
 {
+    // Represents a single journey object.
     public class Journey
     {
         public Guid JourneyId { get; set; }

@@ -33,11 +33,15 @@ namespace solita_assignment.Tests
             {
                 var controller = new JourneysController(context);
                 var pagination = new Pagination { Page = 0, PageSize = 5 };
-                var res = (await controller.GetJourneys(pagination)).Value;
+                var res = (await controller.GetJourneys(pagination)).Result as OkObjectResult;
 
                 // Assert
                 Assert.NotNull(res);
-                Assert.Equal(5, res.Count());
+                Assert.IsType<OkObjectResult>(res);
+                var resValue = res.Value as PagedResponse<Journey>;
+                Assert.NotNull(resValue);
+                Assert.Equal(5, resValue.DataCount);
+                Assert.Equal(5, resValue.Data.Count);
             }
         }
 
@@ -62,11 +66,15 @@ namespace solita_assignment.Tests
             {
                 var controller = new JourneysController(context);
                 var pagination = new Pagination { Page = 0, PageSize = 2 };
-                var res = (await controller.GetJourneys(pagination)).Value;
+                var res = (await controller.GetJourneys(pagination)).Result as OkObjectResult;
 
                 // Assert
                 Assert.NotNull(res);
-                Assert.Equal(2, res.Count());
+                Assert.IsType<OkObjectResult>(res);
+                var resValue = res.Value as PagedResponse<Journey>;
+                Assert.NotNull(resValue);
+                Assert.Equal(5, resValue.DataCount);
+                Assert.Equal(2, resValue.Data.Count);
             }
         }
 
