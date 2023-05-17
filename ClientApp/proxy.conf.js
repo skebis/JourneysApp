@@ -7,6 +7,7 @@ const PROXY_CONFIG = [
   {
     context: [
       "/api/Journeys",
+      "/api/Stations"
    ],
     target: target,
     secure: false,

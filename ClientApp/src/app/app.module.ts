@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { AddJourneyComponent } from './add-journey/add-journey.component';
 import { JourneyListComponent } from './journey-list/journey-list.component';
+import { StationListComponent } from './station-list/station-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { JourneyListComponent } from './journey-list/journey-list.component';
     CounterComponent,
     AddJourneyComponent,
     JourneyListComponent,
+    StationListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
