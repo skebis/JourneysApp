@@ -3,16 +3,23 @@
     <mat-spinner></mat-spinner>
   </div>
   <ng-template #content>
-    <h1 id="tableLabel">Otsikko toimii</h1>
-
-    <mat-form-field class="journey-name">
-      <mat-label class="label-journey-name">Name</mat-label>
-      <input matInput class="input-journey-name" type="text" [(ngModel)]="journey.departureStationName" />
+    <h1>Journey details</h1>
+    <mat-form-field class="journey-departure-station-name">
+      <mat-label class="label-journey-departure-station-name">Departure station name</mat-label>
+      <input matInput readonly="true" class="input-journey-departure-station-name" type="text" [ngModel]="journey.departureStationName" />
+    </mat-form-field>
+    <mat-form-field class="journey-return-station-name">
+      <mat-label class="label-journey-return-station-name">Return station name</mat-label>
+      <input matInput readonly="true" class="input-journey-return-station-name" [ngModel]="journey.returnStationName" />
     </mat-form-field>
     <br />
-    <mat-form-field class="journey-description">
-      <mat-label class="label-journey-description">Description</mat-label>
-      <textarea matInput class="input-journey-description" [(ngModel)]="journey.returnStationName"></textarea>
+    <mat-form-field class="journey-departure">
+      <mat-label class="label-journey-description">Departure</mat-label>
+      <input matInput readonly="true" class="input-journey-departure" [ngModel]="journey.departure | date" />
+    </mat-form-field>
+    <mat-form-field class="journey-return">
+      <mat-label class="label-journey-return">Return</mat-label>
+      <input matInput readonly="true" class="input-journey-return" [ngModel]="journey.return | date" />
     </mat-form-field>
   </ng-template>
 </div>

@@ -1,14 +1,40 @@
 
 <h1 mat-dialog-title id="tableLabel">Add new journey</h1>
 <div mat-dialog-content>
-  <mat-form-field class="journey-name">
-    <mat-label class="label-journey-name">Name</mat-label>
-    <input matInput class="input-journey-name" type="text" [(ngModel)]="journey.departureStationName" />
+  <mat-form-field class="journey-departure-station-name">
+    <mat-label class="label-journey-departure-station-name">Departure station</mat-label>
+    <input matInput class="input-journey-departure-station-name" type="text" [(ngModel)]="journey.departureStationName" />
+  </mat-form-field>
+  <mat-form-field class="journey-departure-station-id">
+    <mat-label class="label-journey-departure-station-id">Departure station id</mat-label>
+    <input matInput class="input-journey-departure-station-id" type="text" [(ngModel)]="journey.departureStationId" />
   </mat-form-field>
   <br />
-  <mat-form-field class="journey-description">
-    <mat-label class="label-journey-description">Description</mat-label>
-    <textarea matInput class="input-journey-description" [(ngModel)]="journey.returnStationName"></textarea>
+  <mat-form-field class="journey-return-station-name">
+    <mat-label class="label-journey-return-station-name">Return station</mat-label>
+    <input matInput class="input-journey-return-station-name" type="text" [(ngModel)]="journey.returnStationName" />
+  </mat-form-field>
+  <mat-form-field class="journey-return-station-id">
+    <mat-label class="label-journey-return-station-id">Return station id</mat-label>
+    <input matInput class="input-journey-return-station-id" type="text" [(ngModel)]="journey.returnStationId" />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="journey-distance">
+    <mat-label class="label-journey-distance">Distance(m)</mat-label>
+    <input matInput class="input-journey-distance" type="text" [(ngModel)]="journey.coveredDistance" />
+  </mat-form-field>
+  <mat-form-field class="journey-duration">
+    <mat-label class="label-journey-duration">Duration(s)</mat-label>
+    <input matInput class="input-journey-duration" type="text" [(ngModel)]="journey.duration" />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="journey-departure">
+    <mat-label class="label-journey-departure">Departure</mat-label>
+    <input matInput class="input-journey-departure" type="text" [(ngModel)]="journey.departure" />
+  </mat-form-field>
+  <mat-form-field class="journey-return">
+    <mat-label class="label-journey-return">Return</mat-label>
+    <input matInput class="input-journey-return" [(ngModel)]="journey.return" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

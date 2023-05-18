@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { AddJourneyComponent } from './add-journey/add-journey.component';
+import { AddStationComponent } from './add-station/add-station.component';
 import { JourneyListComponent } from './journey-list/journey-list.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { JourneyDetailsComponent } from './journey-details/journey-details.component';
@@ -21,6 +22,7 @@ import { StationDetailsComponent } from './station-details/station-details.compo
     NavMenuComponent,
     HomeComponent,
     AddJourneyComponent,
+    AddStationComponent,
     JourneyListComponent,
     StationListComponent,
     JourneyDetailsComponent,
