@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, Injectable, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Journey } from "../classes/journey";
 import { JourneyService } from "../journey-service";
 
@@ -14,10 +14,11 @@ import { JourneyService } from "../journey-service";
 })
 
 @Injectable()
-export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class JourneyListComponent implements AfterViewInit {
   journeys: any[] = [];
   loading: boolean = true;
 
+  // Mat table data.
   dataSource = new MatTableDataSource<any>();
 
   // Mat table definitions
@@ -26,40 +27,33 @@ export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator)
     paginator!: MatPaginator;
 
-  constructor(private journeyService: JourneyService, public dialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {
-
+  constructor(private journeyService: JourneyService, public dialog: MatDialog, private router: Router) {
   }
 
   ngAfterViewInit() {
     this.showJourneys();
   }
 
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy() {
-    // Unsubscribes here
-  }
-
-  ngOnChanges() {
-    // Change detection things here
-  }
-
+  // Open single journey details.
   openJourneyDetails(journey: Journey): void {
     this.router.navigateByUrl('/journey/' + journey.journeyId);
   }
 
+  // Initial request to show journeys.
   showJourneys() {
     this.journeyService.getJourneys(this.paginator.pageIndex, this.paginator.pageSize)
       .subscribe(res => {
         this.loading = false;
         this.journeys = res.data;
+
         this.journeys.length = res.dataCount;
+
         this.dataSource = new MatTableDataSource<any>(this.journeys);
         this.dataSource.paginator = this.paginator;
     });
   }
 
+  // Show journeys, triggered by paginator events.
   showNextJourneys(currentSize: number, page: number, pageSize: number) {
     this.journeyService.getJourneys(page, pageSize)
       .subscribe(res => {
@@ -75,12 +69,11 @@ export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  // Triggered when paginator pages and item count are changed.
   pageChanged(event: any) {
     this.loading = true;
     let pageIndex = event.pageIndex;
     let pageSize = event.pageSize;
-
-    let previousIndex = event.previousPageIndex;
 
     let previousSize = pageSize * pageIndex;
 

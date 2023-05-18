@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, Injectable} from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { JourneyService } from "../journey-service";
@@ -17,7 +17,7 @@ export class JourneyDetailsComponent {
   loading: boolean = true;
   subscription: Subscription[] = [];
 
-  constructor(private journeyService: JourneyService, private router: Router, private route: ActivatedRoute) {
+  constructor(private journeyService: JourneyService, private route: ActivatedRoute) {
     
   }
 

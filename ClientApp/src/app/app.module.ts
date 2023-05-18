@@ -9,7 +9,6 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { AddJourneyComponent } from './add-journey/add-journey.component';
 import { JourneyListComponent } from './journey-list/journey-list.component';
 import { StationListComponent } from './station-list/station-list.component';
@@ -21,7 +20,6 @@ import { StationDetailsComponent } from './station-details/station-details.compo
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     AddJourneyComponent,
     JourneyListComponent,
     StationListComponent,
@@ -35,7 +33,6 @@ import { StationDetailsComponent } from './station-details/station-details.compo
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'journeys', component: JourneyListComponent },
       { path: 'journey/:id', component: JourneyDetailsComponent },
       { path: 'stations', component: StationListComponent },

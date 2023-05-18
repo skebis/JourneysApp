@@ -17,7 +17,7 @@ export class HomeComponent {
       
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('dialog closed');
     });
   }

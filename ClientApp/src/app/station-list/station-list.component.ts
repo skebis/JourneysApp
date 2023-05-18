@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { AfterViewInit, Component, Injectable, ViewChild } from "@angular/core";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
@@ -14,10 +13,11 @@ import { JourneyService } from "../journey-service";
 })
 
 @Injectable()
-export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class StationListComponent implements AfterViewInit {
   stations: any[] = [];
   loading: boolean = true;
 
+  // Mat table data
   dataSource = new MatTableDataSource<any>();
 
   // Mat table definitions
@@ -34,21 +34,12 @@ export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showStations();
   }
 
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy() {
-    // Unsubscribes here
-  }
-
-  ngOnChanges() {
-    // Change detection things here
-  }
-
+  // Open single station details.
   openStationDetails(station: Station): void {
     this.router.navigateByUrl('/station/' + station.stationId);
   }
 
+  // Show all stations in a table.
   showStations() {
     this.journeyService.getStations()
       .subscribe(res => {
@@ -59,14 +50,9 @@ export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  // Triggered when paginator pages and item count are changed.
   pageChanged(event: any) {
     this.loading = true;
     this.showStations();
   }
-
-  /*showJourney(id: string) {
-    this.journeyService.getJourney(id).subscribe(res => {
-      this.journeys = res;
-    });
-  }*/
 }
