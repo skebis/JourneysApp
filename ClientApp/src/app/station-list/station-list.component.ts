@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewCh
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
 import { Station } from "../classes/station";
 import { JourneyService } from "../journey-service";
 
@@ -25,7 +26,7 @@ export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  constructor(private journeyService: JourneyService, public dialog: MatDialog) {
+  constructor(private journeyService: JourneyService, private router: Router) {
 
   }
 
@@ -44,15 +45,9 @@ export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
     // Change detection things here
   }
 
-  /*openJourneyDetailsDialog(station: Station): void {
-    const dialogRef = this.dialog.open(StationDetailsComponent, {
-      data: station
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('dialog closed');
-    });
-  }*/
+  openStationDetails(station: Station): void {
+    this.router.navigateByUrl('/station/' + station.stationId);
+  }
 
   showStations() {
     this.journeyService.getStations()
@@ -66,7 +61,6 @@ export class StationListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   pageChanged(event: any) {
     this.loading = true;
-
     this.showStations();
   }
 

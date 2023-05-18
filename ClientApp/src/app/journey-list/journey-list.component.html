@@ -31,7 +31,7 @@
       <ng-conteiner matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let journey">
-          <button mat-button color="accent" (click)="openJourneyDetailsDialog(journey)">Details</button>
+          <button mat-button color="accent" (click)="openJourneyDetails(journey)">Details</button>
         </mat-cell>
       </ng-conteiner>
 
@@ -45,5 +45,4 @@
                  aria-label="Select page of journeys"
                  (page)="pageChanged($event)">
   </mat-paginator>
-
 </div>

@@ -1,23 +1,39 @@
-import { Component, Inject, Injectable } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Station } from "../classes/station";
+import { Component, Injectable } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
+import { JourneyService } from "../journey-service";
 
 @Component({
   selector: 'app-station-details',
   templateUrl: './station-details.component.html',
-  styleUrls: ['./station-details.component.css']
+  styleUrls: ['./station-details.component.css'],
+  providers: [JourneyService]
 })
 
 @Injectable()
 export class StationDetailsComponent {
-  station: Station;
+  station: any;
+  id: any;
+  loading: boolean = true;
+  subscription: Subscription[] = [];
 
-  constructor(public dialogRef: MatDialogRef<StationDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Station) {
-    this.station = data;
+  constructor(private journeyService: JourneyService, private router: Router, private route: ActivatedRoute) {
+    
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  ngOnInit() {
+    this.subscription.push(this.route.paramMap.subscribe(param => {
+      this.id = param.get('id');
+      this.journeyService.getStation(this.id).subscribe(res => {
+        this.loading = false;
+        this.station = res.station;
+        this.station.departureCount = res.departureStationCount;
+        this.station.returnCount = res.returnStationCount;
+      })
+    }))
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 }

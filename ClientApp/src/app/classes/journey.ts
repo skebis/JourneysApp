@@ -1,4 +1,5 @@
 export interface Journey {
+  journeyId?: string;
   departure: Date;
   return: Date;
   departureStationId: number;

@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, Inject, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, Injectable, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Journey } from "../classes/journey";
-import { JourneyDetailsComponent } from "../journey-details/journey-details.component";
 import { JourneyService } from "../journey-service";
 
 @Component({
@@ -26,7 +26,7 @@ export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator)
     paginator!: MatPaginator;
 
-  constructor(private journeyService: JourneyService, public dialog: MatDialog) {
+  constructor(private journeyService: JourneyService, public dialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -45,14 +45,8 @@ export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
     // Change detection things here
   }
 
-  openJourneyDetailsDialog(journey: Journey): void {
-    const dialogRef = this.dialog.open(JourneyDetailsComponent ,{
-      data: journey
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('dialog closed');
-    });
+  openJourneyDetails(journey: Journey): void {
+    this.router.navigateByUrl('/journey/' + journey.journeyId);
   }
 
   showJourneys() {
@@ -93,9 +87,4 @@ export class JourneyListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showNextJourneys(previousSize, pageIndex, pageSize);
   }
 
-  /*showJourney(id: string) {
-    this.journeyService.getJourney(id).subscribe(res => {
-      this.journeys = res;
-    });
-  }*/
 }

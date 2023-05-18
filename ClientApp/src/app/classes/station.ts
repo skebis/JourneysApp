@@ -1,4 +1,5 @@
 export interface Station {
+  stationId?: string;
   idInt: number;
   nameFinnish: string;
   nameSwedish: string;
@@ -11,4 +12,7 @@ export interface Station {
   capacity: number;
   locationX: number;
   locationY: number;
+
+  departureCount?: number;
+  returnCount?: number;
 }

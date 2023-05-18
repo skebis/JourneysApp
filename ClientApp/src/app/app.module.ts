@@ -13,6 +13,8 @@ import { CounterComponent } from './counter/counter.component';
 import { AddJourneyComponent } from './add-journey/add-journey.component';
 import { JourneyListComponent } from './journey-list/journey-list.component';
 import { StationListComponent } from './station-list/station-list.component';
+import { JourneyDetailsComponent } from './journey-details/journey-details.component';
+import { StationDetailsComponent } from './station-details/station-details.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { StationListComponent } from './station-list/station-list.component';
     AddJourneyComponent,
     JourneyListComponent,
     StationListComponent,
+    JourneyDetailsComponent,
+    StationDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +36,10 @@ import { StationListComponent } from './station-list/station-list.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
+      { path: 'journeys', component: JourneyListComponent },
+      { path: 'journey/:id', component: JourneyDetailsComponent },
+      { path: 'stations', component: StationListComponent },
+      { path: 'station/:id', component: StationDetailsComponent },
     ]),
     MaterialModule
   ],
