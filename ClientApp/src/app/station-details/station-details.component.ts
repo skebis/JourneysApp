@@ -1,5 +1,5 @@
 import { Component, Injectable } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { JourneyService } from "../journey-service";
 
@@ -17,7 +17,7 @@ export class StationDetailsComponent {
   loading: boolean = true;
   subscription: Subscription[] = [];
 
-  constructor(private journeyService: JourneyService, private route: ActivatedRoute) {
+  constructor(private journeyService: JourneyService, private router: Router, private route: ActivatedRoute) {
     
   }
 
@@ -29,7 +29,11 @@ export class StationDetailsComponent {
         this.station = res.station;
         this.station.departureCount = res.departureStationCount;
         this.station.returnCount = res.returnStationCount;
-      })
+      },
+        (error) => {
+          console.error('error in get request');
+          this.router.navigateByUrl("notfound");
+        })
     }))
   }
 

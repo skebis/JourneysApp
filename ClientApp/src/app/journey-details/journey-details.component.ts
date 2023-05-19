@@ -17,7 +17,7 @@ export class JourneyDetailsComponent {
   loading: boolean = true;
   subscription: Subscription[] = [];
 
-  constructor(private journeyService: JourneyService, private route: ActivatedRoute) {
+  constructor(private journeyService: JourneyService, private router: Router, private route: ActivatedRoute) {
     
   }
 
@@ -27,7 +27,11 @@ export class JourneyDetailsComponent {
       this.journeyService.getJourney(this.id).subscribe(res => {
         this.loading = false;
         this.journey = res;
-      })
+      },
+        (error) => {
+          console.error('error in get request');
+          this.router.navigateByUrl("notfound");
+        })
     }))
   }
 

@@ -15,6 +15,7 @@ import { JourneyListComponent } from './journey-list/journey-list.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { JourneyDetailsComponent } from './journey-details/journey-details.component';
 import { StationDetailsComponent } from './station-details/station-details.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { StationDetailsComponent } from './station-details/station-details.compo
     JourneyListComponent,
     StationListComponent,
     JourneyDetailsComponent,
-    StationDetailsComponent
+    StationDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +41,8 @@ import { StationDetailsComponent } from './station-details/station-details.compo
       { path: 'journey/:id', component: JourneyDetailsComponent },
       { path: 'stations', component: StationListComponent },
       { path: 'station/:id', component: StationDetailsComponent },
+      { path: 'notfound', component: PageNotFoundComponent },
+      { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ]),
     MaterialModule
   ],
