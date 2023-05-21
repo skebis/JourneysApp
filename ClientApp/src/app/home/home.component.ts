@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AddJourneyComponent } from '../add-journey/add-journey.component';
 import { AddStationComponent } from '../add-station/add-station.component';
 
@@ -9,7 +10,7 @@ import { AddStationComponent } from '../add-station/add-station.component';
 })
 export class HomeComponent {
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public router: Router) {
 
   }
 
@@ -31,5 +32,13 @@ export class HomeComponent {
     dialogRef.afterClosed().subscribe(() => {
       console.log('dialog closed');
     });
+  }
+
+  openJourneyList() {
+    this.router.navigateByUrl("/journeys");
+  }
+
+  openStationList() {
+    this.router.navigateByUrl("/stations");
   }
 }

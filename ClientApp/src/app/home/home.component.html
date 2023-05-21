@@ -1,6 +1,24 @@
-<h1>Journey app</h1>
+<h1>Welcome to Journeys app!</h1>
 
-<button mat-raised-button color="raised" class="button-add-new-journey" (click)="openAddJourneyDialog()">Add new journey!</button>
-
-<button mat-raised-button color="raised" class="button-add-new-station" (click)="openAddStationDialog()">Add new station!</button>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Journey listing</mat-card-title>
+    <mat-card-subtitle>Journeys contain info about bike journeys between stations.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-raised-button color="raised" class="button-open-journeys" (click)="openJourneyList()">List of journeys</button>
+    <button mat-raised-button color="accent" class="button-add-new-journey" (click)="openAddJourneyDialog()">Add new journey</button>
+  </mat-card-actions>
+</mat-card>
+<br>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Station listing</mat-card-title>
+    <mat-card-subtitle>Stations contain info about bike stations.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-raised-button color="raised" class="button-open-stations" (click)="openStationList()">List of stations</button>
+    <button mat-raised-button color="accent" class="button-add-new-station" (click)="openAddStationDialog()">Add new station</button>
+  </mat-card-actions>
+</mat-card>
 
