@@ -1,58 +1,76 @@
 <h1 mat-dialog-title id="tableLabel">Add new station</h1>
-<div mat-dialog-content>
+<div class="flex-container" mat-dialog-content>
+
   <mat-form-field class="station-id-int">
     <mat-label class="label-station-id-int">Id int</mat-label>
-    <input matInput class="input-station-id-int" type="text" [(ngModel)]="station.idInt" />
+    <input matInput class="input-station-id-int" type="number" [(ngModel)]="station.idInt" />
   </mat-form-field>
+
   <mat-form-field class="station-name-finnish">
     <mat-label class="label-station-name-finnish">Name (finnish)</mat-label>
     <input matInput class="input-station-name-finnish" type="text" [(ngModel)]="station.nameFinnish" />
   </mat-form-field>
+
   <br />
+
   <mat-form-field class="station-name-swedish">
     <mat-label class="label-station-name-swedish">Name (swedish)</mat-label>
     <input matInput class="input-station-name-swedish" type="text" [(ngModel)]="station.nameSwedish" />
   </mat-form-field>
+
   <mat-form-field class="station-name-english">
     <mat-label class="label-station-name-english">Name (english)</mat-label>
     <input matInput class="input-station-name-english" type="text" [(ngModel)]="station.nameEnglish" />
   </mat-form-field>
+
   <br />
+
   <mat-form-field class="station-address-finnish">
     <mat-label class="label-station-address-finnish">Address (finnish)</mat-label>
     <input matInput class="input-station-address-finnish" type="text" [(ngModel)]="station.addressFinnish" />
   </mat-form-field>
+
   <mat-form-field class="station-address-swedish">
     <mat-label class="label-station-address-swedish">Address (swedish)</mat-label>
     <input matInput class="input-station-address-swedish" type="text" [(ngModel)]="station.addressSwedish" />
   </mat-form-field>
+
   <br />
+
   <mat-form-field class="station-city-finnish">
     <mat-label class="label-station-city-finnish">City (finnish)</mat-label>
     <input matInput class="input-station-city-finnish" type="text" [(ngModel)]="station.cityFinnish" />
   </mat-form-field>
+
   <mat-form-field class="station-city-swedish">
     <mat-label class="label-station-city-swedish">City (swedish)</mat-label>
     <input matInput class="input-station-city-swedish" type="text" [(ngModel)]="station.citySwedish" />
   </mat-form-field>
+
   <br />
+
   <mat-form-field class="station-operator">
     <mat-label class="label-station-operator">Operator</mat-label>
     <input matInput class="input-station-operator" type="text" [(ngModel)]="station.operator" />
   </mat-form-field>
+
   <mat-form-field class="station-capacity">
     <mat-label class="label-station-capacity">Capacity</mat-label>
-    <input matInput class="input-station-capacity" type="text" [(ngModel)]="station.capacity" />
+    <input matInput class="input-station-capacity" type="number" [(ngModel)]="station.capacity" />
   </mat-form-field>
+
   <br />
+
   <mat-form-field class="station-location-x">
     <mat-label class="label-station-location-x">Location (x)</mat-label>
-    <input matInput class="input-station-location-x" type="text" [(ngModel)]="station.locationX" />
+    <input matInput class="input-station-location-x" type="number" [(ngModel)]="station.locationX" />
   </mat-form-field>
+
   <mat-form-field class="station-location-y">
     <mat-label class="label-station-location-y">Location (y)</mat-label>
-    <input matInput class="input-station-location-y" type="text" [(ngModel)]="station.locationY" />
+    <input matInput class="input-station-location-y" type="number" [(ngModel)]="station.locationY" />
   </mat-form-field>
+
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" class="button-add-station" (click)="addStation()">Add station</button>

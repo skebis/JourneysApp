@@ -1,24 +1,40 @@
-<h1>Welcome to Journeys app!</h1>
-
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Journey listing</mat-card-title>
-    <mat-card-subtitle>Journeys contain info about bike journeys between stations.</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions>
-    <button mat-raised-button color="raised" class="button-open-journeys" (click)="openJourneyList()">List of journeys</button>
-    <button mat-raised-button color="accent" class="button-add-new-journey" (click)="openAddJourneyDialog()">Add new journey</button>
-  </mat-card-actions>
-</mat-card>
-<br>
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Station listing</mat-card-title>
-    <mat-card-subtitle>Stations contain info about bike stations.</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions>
-    <button mat-raised-button color="raised" class="button-open-stations" (click)="openStationList()">List of stations</button>
-    <button mat-raised-button color="accent" class="button-add-new-station" (click)="openAddStationDialog()">Add new station</button>
-  </mat-card-actions>
-</mat-card>
-
+<h1>Welcome to Journey app!</h1>
+<p>Here are the current features:</p>
+<div class="flex-container">
+  <mat-card class="mat-card-journeys">
+    <mat-card-header>
+      <mat-card-title>Journey listing</mat-card-title>
+      <mat-card-subtitle>Journeys contain info about bike journeys between stations.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="raised" class="button-open-journeys" (click)="openJourneyList()">List of journeys</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="mat-card-stations">
+    <mat-card-header>
+      <mat-card-title>Station listing</mat-card-title>
+      <mat-card-subtitle>Stations contain info about bike stations.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="raised" class="button-open-stations" (click)="openStationList()">List of stations</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="mat-card-add-journey">
+    <mat-card-header>
+      <mat-card-title>Creating journeys</mat-card-title>
+      <mat-card-subtitle>Adding new journeys with http post request.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" class="button-add-new-journey" (click)="openAddJourneyDialog()">Add new journey</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="mat-card-add-station">
+    <mat-card-header>
+      <mat-card-title>Creating stations</mat-card-title>
+      <mat-card-subtitle>Adding new stations with http post request.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" class="button-add-new-station" (click)="openAddStationDialog()">Add new station</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

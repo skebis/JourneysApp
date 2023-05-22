@@ -8,20 +8,20 @@
 
     <mat-form-field class="station-name">
       <mat-label class="label-station-name">Name</mat-label>
-      <input matInput readonly="true" class="text-station-name" type="text" [ngModel]="station.nameFinnish" />
+      <input matInput [readonly]="true" class="text-station-name" type="text" [ngModel]="station.nameFinnish" />
     </mat-form-field>
     <mat-form-field class="station-address">
       <mat-label class="label-station-address">Address</mat-label>
-      <input matInput readonly="true" class="text-station-address" type="text" [ngModel]="station.addressFinnish" />
+      <input matInput [readonly]="true" class="text-station-address" type="text" [ngModel]="station.addressFinnish" />
     </mat-form-field>
     <br />
     <mat-form-field class="station-departurecount">
       <mat-label class="label-station-departurecount">Journeys starting from</mat-label>
-      <input matInput readonly="true" class="text-station-departurecount" [ngModel]="station.departureCount" />
+      <input matInput [readonly]="true" class="text-station-departurecount" type="number" [ngModel]="station.departureCount" />
     </mat-form-field>
     <mat-form-field class="station-returncount">
       <mat-label class="label-station-returncount">Journeys ending at</mat-label>
-      <input matInput readonly="true" class="text-station-returncount" [ngModel]="station.returnCount" />
+      <input matInput [readonly]="true" class="text-station-returncount" type="number" [ngModel]="station.returnCount" />
     </mat-form-field>
   </ng-template>
 </div>

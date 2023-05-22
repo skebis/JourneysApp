@@ -6,7 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -26,6 +29,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -37,6 +42,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     {

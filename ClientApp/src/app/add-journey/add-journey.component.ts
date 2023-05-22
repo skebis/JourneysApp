@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Journey } from '../classes/journey';
 import { JourneyService } from '../journey-service';
@@ -11,12 +11,14 @@ import { JourneyService } from '../journey-service';
 })
 
 @Injectable()
-export class AddJourneyComponent implements OnInit, OnDestroy {
+export class AddJourneyComponent {
+
+  private now: Date = new Date();
 
   // journey is the current journey that is being edited and added.
   journey: Journey = {
-    departure: new Date('2023-05-16'),
-    return: new Date('2023-05-16'),
+    departure: this.now,
+    return: this.now,
     departureStationId: 0,
     departureStationName: '',
     returnStationId: 0,
@@ -34,18 +36,6 @@ export class AddJourneyComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-    // Unsubscribes and such
-  }
-
-  ngOnChanges() {
-    // Change detection things here
-  }
-
   // Adds new journey by calling API backend.
   addJourney() {
     this.journeyService.postJourney(this.journey).subscribe(res => {
@@ -58,8 +48,8 @@ export class AddJourneyComponent implements OnInit, OnDestroy {
   // Clears current journey, making it empty.
   private clearJourney() {
     this.journey = {
-      departure: new Date('2023-05-16'),
-      return: new Date('2023-05-16'),
+      departure: this.now,
+      return: this.now,
       departureStationId: 0,
       departureStationName: '',
       returnStationId: 0,
