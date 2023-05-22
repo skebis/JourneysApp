@@ -18,7 +18,7 @@ builder.Services.AddDbContext<JourneyContext>(opt => opt.UseSqlite($"Data Source
 if (!File.Exists(Path.Join(Environment.CurrentDirectory, JourneyContext.dbFileName)))
 {
     ImportCsvData<Journey>(new string[] { "2021-05.csv", "2021-06.csv", "2021-07.csv" });
-    ImportCsvData<Station>(new string[] { "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv" });
+    ImportCsvData<Station>(new string[] { "Helsingin_ja_Espoon_kaupunkipyoraasemat_avoin.csv" });
 }
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
