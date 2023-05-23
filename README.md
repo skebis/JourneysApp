@@ -29,7 +29,8 @@ To run the application you must complete the following steps (every step has bee
    - https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
    - https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
    - Please keep the file names unchanged because they are hard coded.
-6. Open the solution with Visual Studio and run/debug the app at Debug -> Start Debugging or Start Without Debugging.
+6. Open the solution with Visual Studio and run/debug the app at Debug -> Start Debugging or Start Without Debugging. Make sure you are using the "solita-assignment" profile. ![kuva](https://github.com/skebis/solita-assignment/assets/33286562/89aa9fc4-041f-4de4-87fa-831595aa3330)
+
    - First run will take some time, most likely 15-25 minutes, because the database is initialized with .csv data. Files contain millions of entries. You can watch the import progress from Output -> Show output from Debug.
    - Afterwards your default browser should launch and navigate to localhost:44477 and you are ready to use the app!
 7. You can also run the unit tests in Visual Studio by clicking Test -> Run All Tests
