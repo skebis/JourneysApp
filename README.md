@@ -1,6 +1,6 @@
 # Solita Dev Academy assignment
 
-Welcome to Journey app!
+## Welcome to Journey app!
 
 Journey app is a simple full stack web application project where you can view and add bike journeys and stations.
 Web application is created using .NET Core as a back end and Angular as a front end. Back end has basic CRUD API methods
@@ -34,3 +34,14 @@ To run the application you must complete the following steps (every step has bee
    - First run will take some time, most likely 15-25 minutes, because the database is initialized with .csv data. Files contain millions of entries. You can watch the import progress from Output -> Show output from Debug.
    - Afterwards your default browser should launch and navigate to localhost:44477 and you are ready to use the app!
 7. You can also run the unit tests in Visual Studio by clicking Test -> Run All Tests
+
+## Troubleshooting
+
+Database initialization aborted and the database is incomplete.
+- You can continue using the incomplete database or delete the BikeJourneys.db at solution root folder (where .sln file is).
+
+There are build errors.
+- Most likely VS gives errors about Node.js. If you didn't install it yet, install and restart VS.
+
+Front end doesn't start or npm terminal window is starting and closing constantly.
+- Something went wrong with initial npm install during the app launch. Run npm install in ClientApp folder or delete the whole project folder and clone it from here again. You can save BikeJourneys.db to skip database initialization.
